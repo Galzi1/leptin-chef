@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Material Design base styles */
+@layer base {
+  html {
+    font-family: 'Roboto', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-surface-1 text-on-surface-1;
+    font-family: 'Roboto', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+}
+
+/* Material Design component styles */
+@layer components {
+  .material-card {
+    @apply bg-surface-0 rounded-lg shadow-material-1 p-md;
+  }
+  
+  .material-button {
+    @apply bg-primary-A400 text-white px-lg py-sm rounded-md font-medium 
+           hover:bg-primary-A700 focus:outline-none focus:ring-2 
+           focus:ring-primary-A400 focus:ring-offset-2 
+           transition-colors duration-200;
+  }
+  
+  .material-button-outlined {
+    @apply border border-primary-A400 text-primary-A400 bg-transparent 
+           px-lg py-sm rounded-md font-medium 
+           hover:bg-primary-A400 hover:text-white 
+           focus:outline-none focus:ring-2 
+           focus:ring-primary-A400 focus:ring-offset-2 
+           transition-colors duration-200;
+  }
+  
+  .material-input {
+    @apply w-full px-sm py-xs border border-surface-4 rounded-md 
+           focus:outline-none focus:ring-2 focus:ring-primary-A400 
+           focus:border-transparent transition-colors duration-200;
+  }
+  
+  .material-list-item {
+    @apply flex items-center px-md py-sm hover:bg-surface-2 
+           transition-colors duration-200 cursor-pointer;
+  }
+  
+  .material-top-bar {
+    @apply bg-surface-0 shadow-material-1 px-md py-sm 
+           flex items-center justify-between;
+  }
+  
+  .material-navigation-drawer {
+    @apply bg-surface-0 shadow-material-2 h-full w-64 
+           transform transition-transform duration-300 ease-in-out;
+  }
+}
+
+/* Responsive design utilities */
+@layer utilities {
+  .container-responsive {
+    @apply max-w-7xl mx-auto px-md;
+  }
+  
+  .text-responsive {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+  
+  .spacing-responsive {
+    @apply space-y-sm sm:space-y-md lg:space-y-lg;
+  }
+}
+
