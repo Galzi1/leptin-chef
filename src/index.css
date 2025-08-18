@@ -77,5 +77,163 @@
   .spacing-responsive {
     @apply space-y-sm sm:space-y-md lg:space-y-lg;
   }
+  
+  /* Material Design typography utilities */
+  .text-display-large {
+    @apply text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight;
+  }
+  
+  .text-display-medium {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight;
+  }
+  
+  .text-display-small {
+    @apply text-2xl sm:text-3xl lg:text-4xl font-light tracking-tight;
+  }
+  
+  .text-headline-large {
+    @apply text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight;
+  }
+  
+  .text-headline-medium {
+    @apply text-xl sm:text-2xl lg:text-3xl font-normal tracking-tight;
+  }
+  
+  .text-headline-small {
+    @apply text-lg sm:text-xl lg:text-2xl font-normal tracking-tight;
+  }
+  
+  .text-title-large {
+    @apply text-lg sm:text-xl lg:text-2xl font-medium tracking-tight;
+  }
+  
+  .text-title-medium {
+    @apply text-base sm:text-lg lg:text-xl font-medium tracking-tight;
+  }
+  
+  .text-title-small {
+    @apply text-sm sm:text-base lg:text-lg font-medium tracking-tight;
+  }
+  
+  .text-body-large {
+    @apply text-base sm:text-lg lg:text-xl font-normal tracking-wide;
+  }
+  
+  .text-body-medium {
+    @apply text-sm sm:text-base lg:text-lg font-normal tracking-wide;
+  }
+  
+  .text-body-small {
+    @apply text-xs sm:text-sm lg:text-base font-normal tracking-wide;
+  }
+  
+  .text-label-large {
+    @apply text-sm sm:text-base lg:text-lg font-medium tracking-wide;
+  }
+  
+  .text-label-medium {
+    @apply text-xs sm:text-sm lg:text-base font-medium tracking-wide;
+  }
+  
+  .text-label-small {
+    @apply text-xs font-medium tracking-wide;
+  }
+  
+  /* Material Design spacing utilities */
+  .space-material-xs {
+    @apply space-y-xs;
+  }
+  
+  .space-material-sm {
+    @apply space-y-sm;
+  }
+  
+  .space-material-md {
+    @apply space-y-md;
+  }
+  
+  .space-material-lg {
+    @apply space-y-lg;
+  }
+  
+  .space-material-xl {
+    @apply space-y-xl;
+  }
+  
+  /* Material Design elevation utilities */
+  .elevation-0 {
+    @apply shadow-none;
+  }
+  
+  .elevation-1 {
+    @apply shadow-material-1;
+  }
+  
+  .elevation-2 {
+    @apply shadow-material-2;
+  }
+  
+  .elevation-3 {
+    @apply shadow-material-3;
+  }
+  
+  .elevation-4 {
+    @apply shadow-material-4;
+  }
+  
+  .elevation-5 {
+    @apply shadow-material-5;
+  }
+  
+  /* Material Design state utilities */
+  .state-hover {
+    @apply hover:bg-surface-2 transition-colors duration-200;
+  }
+  
+  .state-focus {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-A400 focus:ring-offset-2;
+  }
+  
+  .state-active {
+    @apply active:bg-surface-3;
+  }
+  
+  .state-disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+  
+  /* Material Design animation utilities */
+  .animate-material-enter {
+    @apply animate-fade-in;
+  }
+  
+  .animate-material-slide-up {
+    @apply animate-slide-up;
+  }
+  
+  .animate-material-slide-down {
+    @apply animate-slide-down;
+  }
+  
+  /* Cross-platform responsive utilities */
+  .mobile-only {
+    @apply block sm:hidden;
+  }
+  
+  .tablet-only {
+    @apply hidden sm:block lg:hidden;
+  }
+  
+  .desktop-only {
+    @apply hidden lg:block;
+  }
+  
+  .mobile-tablet {
+    @apply block lg:hidden;
+  }
+  
+  .tablet-desktop {
+    @apply hidden sm:block;
+  }
 }
 
