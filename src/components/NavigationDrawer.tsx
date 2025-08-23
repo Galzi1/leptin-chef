@@ -17,7 +17,7 @@ const NavigationDrawer = () => {
       {/* Backdrop */}
       {isDrawerOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
           onClick={closeDrawer}
         />
       )}
@@ -25,8 +25,7 @@ const NavigationDrawer = () => {
       {/* Drawer */}
       <nav
         className={`fixed top-0 left-0 h-full z-50 material-navigation-drawer 
-                   transform ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full'}
-                   lg:relative lg:translate-x-0 lg:z-auto`}
+                   transform ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className="flex flex-col h-full">
           {/* Header with Avatar */}

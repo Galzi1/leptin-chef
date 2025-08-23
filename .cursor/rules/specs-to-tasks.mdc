@@ -1,0 +1,169 @@
+---
+description: Convert any reasonably written product/engineering spec Markdown into a single Markdown “Implementation Plan” of concrete, bite-sized, verifiable tasks that Cursor can execute one-by-one. Idempotent and update-safe.
+globs: *.md
+alwaysApply: false
+---
+
+## Output — Strict Structure
+
+Create or update `_tasks/{SPEC_BASENAME}.tasks.md` with **exactly** this skeleton and ordering:
+
+# {Spec Title}: Implementation Plan
+
+<small>Source: {relative path of spec}; Generated: {YYYY-MM-DD}</small>
+
+## Summary
+
+* One-sentence problem statement.
+* One-sentence solution approach.
+* Success metric(s).
+
+## Scope
+
+* In-scope bullets.
+* Out-of-scope bullets.
+
+## Assumptions
+
+* Bulleted assumptions with confidence tags \[High]/\[Med]/\[Low].
+
+## Risks & Mitigations
+
+* R1: <risk> → <mitigation> \[Owner TBD]
+* R2: …
+
+## Milestones
+
+* M1: <milestone name> — includes tasks: T-001,T-002…
+* M2: …
+
+## Task List (Atomic, Executable)
+
+Rules:
+
+* Each task fits a single focused PR (≈ 1–3 hours). If larger, **split**.
+* Prefer **vertical slices** behind a feature flag or config gate.
+* Each task must include ID, title, dependencies, estimate, area, artifacts, ordered steps, acceptance criteria, verification, rollback/guardrails.
+
+Template (repeat per task):
+
+### T-### — \<Concise, imperative title>
+
+**Depends on:** T-XYZ, … (omit if none)
+**Estimate:** S (≤1h) | M (≤3h) | L (≤6h)
+**Area:** \<service/module/package>
+**Artifacts touched:** `path/to/file`, `pkg/module`, `k8s chart`, …
+
+**Steps (do in order):**
+
+1. <concrete step>  
+2. <concrete step>  
+3. …
+
+**Acceptance Criteria:**
+
+* [ ] Given/When/Then #1
+* [ ] Given/When/Then #2
+
+**Verification:**
+
+* Unit: \<test file/class to add/extend>
+* Integration/Contract: <test or mock>
+* Telemetry: \<metrics/logs/span names>
+* Manual: <exact command or URL>
+
+**Rollback/Guardrails:**
+
+* Feature flag: `<flag_name>` default OFF/ON
+* Rollback: <how to revert safely>
+
+## Sequencing
+
+* Topological order of tasks by dependency, noting any parallelizable groups and why.
+
+## Open Questions (Blockers to Execution)
+
+* Q1: <question> → Proposed default if unanswered by {date}.
+* Q2: …
+
+## Appendix — Traceability
+
+* Table: Spec section ➜ Task IDs mapping.
+* API/Schema deltas (if any).
+* Non-functional requirements mapping (perf, security, accessibility, i18n).
+
+---
+
+## Extraction & Synthesis Rules
+
+1. **Mine Requirements** from spec headings/sections: Problem, Goals/Non-Goals, Functional Requirements, UX, API, Data, Migration, Observability, Security/Privacy, Performance/SLOs, Rollout.
+2. **Name Work Surfaces**: endpoints, handlers, components, jobs, migrations, IaC, dashboards.
+3. **Slice Vertically**: end-to-end thin slices; merge behind a flag.
+4. **Bound Task Size**: >3h or >2 domains ⇒ split (`read → write → enable` is preferred).
+5. **Verification First**: define tests & telemetry per task.
+6. **Idempotency**: on re-run, keep IDs; append new tasks; never renumber; preserve completed checkboxes.
+7. **Be Concrete**: replace vague verbs with file-level actions (e.g., `api/orders/create.ts`).
+8. **Safety**: feature flag user-visible changes; include migration backouts.
+9. **Observability**: at least one measurable signal for user impact.
+10. **Docs**: add/update doc task if behavior changes.
+
+---
+
+## ID & File Management
+
+* **New plan**: start IDs at `T-001`.
+* **Existing plan**: parse existing IDs; append without reuse; mark removed items as **Deprecated** with rationale.
+* **Cross-spec work**: generate a light “meta plan” that references per-spec task IDs rather than duplicating tasks.
+
+---
+
+## Quality Gates (Hard Requirements)
+
+* Every task includes: Dependencies, Estimate, Artifacts, Steps, Acceptance, Verification, Rollback/Guardrails.
+* Sequencing aligns with dependencies; no orphan tasks.
+* No task references non-existent paths without creating them earlier.
+* New APIs require schema validation and error contracts.
+* Data changes require a migration task and rollback note.
+* User-visible changes require a flag/dark-launch plan.
+* Tasks must be testable without production access.
+
+---
+
+## Example (Abbreviated)
+
+### T-001 — Add POST /orders endpoint (scaffold)
+
+**Depends on:** —
+**Estimate:** S
+**Area:** `services/api`
+**Artifacts touched:** `services/api/src/routes/orders.ts`, `services/api/src/schemas/Order.ts`
+
+**Steps (do in order):**
+
+1. Create route `POST /orders` in `orders.ts` returning 501.
+2. Define `OrderCreate` zod schema in `schemas/Order.ts`.
+3. Register route in router index.
+
+**Acceptance Criteria:**
+
+* [ ] `POST /orders` returns 501 with `{ "error": "NotImplemented" }`.
+
+**Verification:**
+
+* Unit: `orders.spec.ts` has route-exists test.
+* Telemetry: log `order.create.requested`.
+* Manual: `curl -X POST :3000/orders`.
+
+**Rollback/Guardrails:**
+
+* Feature flag `orders_create_enabled` default OFF.
+
+---
+
+## Execution Notes (Cursor)
+
+* When invoked on a spec file, **create or update** `_tasks/{SPEC_BASENAME}.tasks.md` with the structure above.
+* Open the plan and focus the first unchecked task (`T-001` or next).
+* When asked to “implement the next task”, perform only that task, updating the checkbox and linking PR/commit if available.
+
+---
